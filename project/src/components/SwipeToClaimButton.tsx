@@ -1,12 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Gift, Lock, ChevronRight } from 'lucide-react';
+import React, { useState, useRef, useEffect } from "react";
+import { Gift, Lock, ChevronRight } from "lucide-react";
+import SparkleBurst from "./SparkleBurst";
 
 interface SwipeToClaimButtonProps {
   canClaim: boolean;
   onClaim: () => void;
 }
 
-const SwipeToClaimButton: React.FC<SwipeToClaimButtonProps> = ({ canClaim, onClaim }) => {
+const SwipeToClaimButton: React.FC<SwipeToClaimButtonProps> = ({
+  canClaim,
+  onClaim,
+}) => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragPosition, setDragPosition] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -27,8 +31,8 @@ const SwipeToClaimButton: React.FC<SwipeToClaimButtonProps> = ({ canClaim, onCla
       }
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleStart = (clientX: number) => {
@@ -42,15 +46,18 @@ const SwipeToClaimButton: React.FC<SwipeToClaimButtonProps> = ({ canClaim, onCla
     const rect = buttonRef.current.getBoundingClientRect();
     const sliderWidth = sliderRef.current?.offsetWidth || 60;
     const maxPosition = buttonWidth - sliderWidth;
-    const newPosition = Math.max(0, Math.min(clientX - rect.left - sliderWidth / 2, maxPosition));
-    
+    const newPosition = Math.max(
+      0,
+      Math.min(clientX - rect.left - sliderWidth / 2, maxPosition)
+    );
+
     setDragPosition(newPosition);
 
     // Check if dragged far enough (80% of the way)
     if (newPosition >= maxPosition * 0.8) {
       setIsCompleted(true);
       setIsDragging(false);
-      
+
       // Trigger claim after animation
       setTimeout(() => {
         onClaim();
@@ -101,21 +108,24 @@ const SwipeToClaimButton: React.FC<SwipeToClaimButtonProps> = ({ canClaim, onCla
 
   useEffect(() => {
     if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-      document.addEventListener('touchmove', handleTouchMove, { passive: false });
-      document.addEventListener('touchend', handleTouchEnd);
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener("touchmove", handleTouchMove, {
+        passive: false,
+      });
+      document.addEventListener("touchend", handleTouchEnd);
     }
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleTouchEnd);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleTouchEnd);
     };
   }, [isDragging]);
 
-  const progressPercentage = buttonWidth > 0 ? (dragPosition / (buttonWidth - 60)) * 100 : 0;
+  const progressPercentage =
+    buttonWidth > 0 ? (dragPosition / (buttonWidth - 60)) * 100 : 0;
 
   return (
     <div className="relative w-full max-w-md mx-auto">
@@ -137,18 +147,22 @@ const SwipeToClaimButton: React.FC<SwipeToClaimButtonProps> = ({ canClaim, onCla
         ref={buttonRef}
         className={`relative h-16 rounded-full border-2 overflow-hidden transition-all duration-300 ${
           canClaim
-            ? 'bg-gradient-to-r from-slate-700 to-slate-800 border-yellow-500/50'
-            : 'bg-gradient-to-r from-slate-600 to-slate-700 border-slate-500/30'
-        } ${isCompleted ? 'bg-gradient-to-r from-green-600 to-green-700 border-green-400' : ''}`}
+            ? "bg-gradient-to-r from-slate-700 to-slate-800 border-yellow-500/50"
+            : "bg-gradient-to-r from-slate-600 to-slate-700 border-slate-500/30"
+        } ${
+          isCompleted
+            ? "bg-gradient-to-r from-green-600 to-green-700 border-green-400"
+            : ""
+        }`}
       >
         {/* Progress background */}
         <div
           className={`absolute inset-0 transition-all duration-300 ${
             isCompleted
-              ? 'bg-gradient-to-r from-green-500 to-green-400'
+              ? "bg-gradient-to-r from-green-500 to-green-400"
               : canClaim
-              ? 'bg-gradient-to-r from-yellow-500/20 to-yellow-400/20'
-              : 'bg-gradient-to-r from-slate-500/20 to-slate-400/20'
+              ? "bg-gradient-to-r from-yellow-500/20 to-yellow-400/20"
+              : "bg-gradient-to-r from-slate-500/20 to-slate-400/20"
           }`}
           style={{
             width: `${Math.max(progressPercentage, 0)}%`,
@@ -159,17 +173,17 @@ const SwipeToClaimButton: React.FC<SwipeToClaimButtonProps> = ({ canClaim, onCla
         <div
           ref={sliderRef}
           className={`absolute top-1 left-1 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 ${
-            isDragging ? 'scale-110' : 'scale-100'
+            isDragging ? "scale-110" : "scale-100"
           } ${
             isCompleted
-              ? 'bg-gradient-to-r from-green-400 to-green-500 shadow-lg shadow-green-500/50'
+              ? "bg-gradient-to-r from-green-400 to-green-500 shadow-lg shadow-green-500/50"
               : canClaim
-              ? 'bg-gradient-to-r from-yellow-400 to-yellow-500 shadow-lg shadow-yellow-500/50'
-              : 'bg-gradient-to-r from-slate-500 to-slate-600 shadow-lg'
+              ? "bg-gradient-to-r from-yellow-400 to-yellow-500 shadow-lg shadow-yellow-500/50"
+              : "bg-gradient-to-r from-slate-500 to-slate-600 shadow-lg"
           }`}
           style={{
             transform: `translateX(${dragPosition}px)`,
-            transition: isDragging ? 'none' : 'transform 0.3s ease-out',
+            transition: isDragging ? "none" : "transform 0.3s ease-out",
           }}
           onMouseDown={handleMouseDown}
           onTouchStart={handleTouchStart}
@@ -177,7 +191,11 @@ const SwipeToClaimButton: React.FC<SwipeToClaimButtonProps> = ({ canClaim, onCla
           {isCompleted ? (
             <Gift className="w-6 h-6 text-white animate-bounce" />
           ) : canClaim ? (
-            <ChevronRight className={`w-6 h-6 text-slate-900 ${isDragging ? 'animate-pulse' : ''}`} />
+            <ChevronRight
+              className={`w-6 h-6 text-slate-900 ${
+                isDragging ? "animate-pulse" : ""
+              }`}
+            />
           ) : (
             <Lock className="w-6 h-6 text-slate-400" />
           )}
@@ -188,20 +206,20 @@ const SwipeToClaimButton: React.FC<SwipeToClaimButtonProps> = ({ canClaim, onCla
           <span
             className={`font-bold text-lg transition-all duration-300 ${
               isCompleted
-                ? 'text-white'
+                ? "text-white"
                 : canClaim
-                ? 'text-yellow-300'
-                : 'text-slate-400'
+                ? "text-yellow-300"
+                : "text-slate-400"
             }`}
             style={{
               opacity: progressPercentage > 50 ? 0.3 : 1,
             }}
           >
             {isCompleted
-              ? 'Claimed! 🎉'
+              ? "Claimed! 🎉"
               : canClaim
-              ? 'Swipe to Claim Reward'
-              : 'Claim Locked'}
+              ? "Swipe to Claim Reward"
+              : "Claim Locked"}
           </span>
         </div>
 
@@ -222,12 +240,18 @@ const SwipeToClaimButton: React.FC<SwipeToClaimButtonProps> = ({ canClaim, onCla
 
       {/* Instruction text */}
       <div className="text-center mt-3">
-        <p className={`text-sm transition-colors duration-300 ${
-          canClaim ? 'text-purple-300' : 'text-slate-500'
-        }`}>
-          {canClaim ? 'Drag the slider to unlock your reward' : 'Wait for the timer to complete'}
+        <p
+          className={`text-sm transition-colors duration-300 ${
+            canClaim ? "text-purple-300" : "text-slate-500"
+          }`}
+        >
+          {canClaim
+            ? "Drag the slider to unlock your reward"
+            : "Wait for the timer to complete"}
         </p>
       </div>
+
+      {isCompleted && <SparkleBurst />}
     </div>
   );
 };

@@ -1,8 +1,9 @@
-import React from 'react';
-import CountdownTimer from './CountdownTimer';
-import SwipeToClaimButton from './SwipeToClaimButton';
-import AnimatedCounter from './AnimatedCounter';
-import { Vault, Coins, TrendingUp } from 'lucide-react';
+import React from "react";
+import CountdownTimer from "./CountdownTimer";
+import SwipeToClaimButton from "./SwipeToClaimButton";
+import AnimatedCounter from "./AnimatedCounter";
+import { Vault, Coins, TrendingUp } from "lucide-react";
+import SparkleBurst from "./SparkleBurst";
 
 interface VaultCardProps {
   balance: number;
@@ -12,23 +13,23 @@ interface VaultCardProps {
   isBalanceUpdating?: boolean;
 }
 
-const VaultCard: React.FC<VaultCardProps> = ({ 
-  balance, 
-  timeRemaining, 
-  canClaim, 
-  onClaim, 
-  isBalanceUpdating = false 
+const VaultCard: React.FC<VaultCardProps> = ({
+  balance,
+  timeRemaining,
+  canClaim,
+  onClaim,
+  isBalanceUpdating = false,
 }) => {
   return (
     <div className="relative">
       {/* Animated background glow */}
       <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-purple-500/20 rounded-2xl blur-xl animate-pulse"></div>
-      
+
       {/* Extra glow when balance is updating */}
       {isBalanceUpdating && (
         <div className="absolute inset-0 bg-gradient-to-r from-green-400/30 to-yellow-400/30 rounded-2xl blur-2xl animate-ping"></div>
       )}
-      
+
       <div className="relative bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-sm rounded-2xl border border-yellow-500/30 shadow-2xl overflow-hidden">
         {/* Header with gradient overlay */}
         <div className="relative bg-gradient-to-r from-yellow-500/20 to-purple-600/20 p-6 border-b border-yellow-500/20">
@@ -54,27 +55,39 @@ const VaultCard: React.FC<VaultCardProps> = ({
               <TrendingUp className="w-5 h-5 text-green-400 animate-bounce" />
             )}
           </div>
-          
+
           <div className="relative inline-block">
             {/* Balance display with animation */}
-            <div className={`text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 mb-8 transition-all duration-300 ${
-              isBalanceUpdating ? 'scale-110 drop-shadow-lg' : ''
-            }`}>
+            <div
+              className={`text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 mb-8 transition-all duration-300 ${
+                isBalanceUpdating ? "scale-110 drop-shadow-lg" : ""
+              }`}
+            >
               <AnimatedCounter value={balance} duration={1500} /> ST
             </div>
-            
+
             {/* Animated background glow */}
-            <div className={`absolute inset-0 bg-gradient-to-r from-yellow-300/20 to-yellow-500/20 rounded-lg blur-md transition-all duration-300 ${
-              isBalanceUpdating ? 'scale-110 opacity-100' : 'opacity-50'
-            }`}></div>
-            
+            <div
+              className={`absolute inset-0 bg-gradient-to-r from-yellow-300/20 to-yellow-500/20 rounded-lg blur-md transition-all duration-300 ${
+                isBalanceUpdating ? "scale-110 opacity-100" : "opacity-50"
+              }`}
+            ></div>
+
             {/* Money rain effect when updating */}
             {isBalanceUpdating && (
               <>
-                <div className="absolute -top-4 left-1/4 text-green-400 text-xl animate-bounce">💰</div>
-                <div className="absolute -top-6 right-1/4 text-yellow-400 text-lg animate-bounce delay-100">💎</div>
-                <div className="absolute -top-2 left-1/3 text-green-300 text-sm animate-bounce delay-200">✨</div>
-                <div className="absolute -top-8 right-1/3 text-yellow-300 text-sm animate-bounce delay-300">🎉</div>
+                <div className="absolute -top-4 left-1/4 text-green-400 text-xl animate-bounce">
+                  💰
+                </div>
+                <div className="absolute -top-6 right-1/4 text-yellow-400 text-lg animate-bounce delay-100">
+                  💎
+                </div>
+                <div className="absolute -top-2 left-1/3 text-green-300 text-sm animate-bounce delay-200">
+                  ✨
+                </div>
+                <div className="absolute -top-8 right-1/3 text-yellow-300 text-sm animate-bounce delay-300">
+                  🎉
+                </div>
               </>
             )}
           </div>
@@ -100,7 +113,7 @@ const VaultCard: React.FC<VaultCardProps> = ({
         {/* Decorative elements */}
         <div className="absolute top-4 right-4 w-24 h-24 bg-gradient-to-br from-yellow-400/10 to-transparent rounded-full blur-xl"></div>
         <div className="absolute bottom-4 left-4 w-16 h-16 bg-gradient-to-br from-purple-500/10 to-transparent rounded-full blur-lg"></div>
-        
+
         {/* Animated particles when balance updates */}
         {isBalanceUpdating && (
           <>
@@ -110,6 +123,8 @@ const VaultCard: React.FC<VaultCardProps> = ({
             <div className="absolute bottom-1/4 right-1/3 w-1 h-1 bg-yellow-300 rounded-full animate-ping delay-300"></div>
           </>
         )}
+
+        {isBalanceUpdating && <SparkleBurst />}
       </div>
     </div>
   );

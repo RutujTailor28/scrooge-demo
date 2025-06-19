@@ -1,5 +1,6 @@
-import React from 'react';
-import { History, TrendingUp } from 'lucide-react';
+import React from "react";
+import { History, TrendingUp } from "lucide-react";
+import SparkleBurst from "./SparkleBurst";
 
 interface ClaimLog {
   id: number;
@@ -16,7 +17,7 @@ const ClaimHistory: React.FC<ClaimHistoryProps> = ({ logs }) => {
     const now = new Date();
     const diffMs = now.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / (1000 * 60));
-    
+
     if (diffMins < 60) {
       return `${diffMins}m ago`;
     } else {
@@ -57,18 +58,24 @@ const ClaimHistory: React.FC<ClaimHistoryProps> = ({ logs }) => {
                 key={log.id}
                 className={`flex items-center justify-between p-4 rounded-lg border transition-all duration-300 hover:scale-[1.02] ${
                   index === 0
-                    ? 'bg-gradient-to-r from-yellow-500/10 to-purple-500/10 border-yellow-500/30 shadow-lg'
-                    : 'bg-slate-700/30 border-slate-600/30 hover:border-purple-500/30'
+                    ? "bg-gradient-to-r from-yellow-500/10 to-purple-500/10 border-yellow-500/30 shadow-lg"
+                    : "bg-slate-700/30 border-slate-600/30 hover:border-purple-500/30"
                 }`}
               >
                 <div className="flex items-center space-x-4">
-                  <div className={`w-3 h-3 rounded-full ${
-                    index === 0 ? 'bg-yellow-400 animate-pulse' : 'bg-purple-400'
-                  }`}></div>
+                  <div
+                    className={`w-3 h-3 rounded-full ${
+                      index === 0
+                        ? "bg-yellow-400 animate-pulse"
+                        : "bg-purple-400"
+                    }`}
+                  ></div>
                   <div>
-                    <div className={`font-bold ${
-                      index === 0 ? 'text-yellow-300' : 'text-white'
-                    }`}>
+                    <div
+                      className={`font-bold ${
+                        index === 0 ? "text-yellow-300" : "text-white"
+                      }`}
+                    >
                       +{log.amount.toFixed(2)} ST
                     </div>
                     <div className="text-sm text-slate-400">
@@ -76,11 +83,14 @@ const ClaimHistory: React.FC<ClaimHistoryProps> = ({ logs }) => {
                     </div>
                   </div>
                 </div>
-                
+
                 {index === 0 && (
-                  <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-slate-900 px-3 py-1 rounded-full text-xs font-bold">
-                    LATEST
-                  </div>
+                  <>
+                    <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-slate-900 px-3 py-1 rounded-full text-xs font-bold">
+                      LATEST
+                    </div>
+                    <SparkleBurst />
+                  </>
                 )}
               </div>
             ))}
