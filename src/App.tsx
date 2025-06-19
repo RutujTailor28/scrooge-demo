@@ -1,6 +1,6 @@
 import React from "react";
-import VaultClaim from "./components/VaultClaim";
-import CasinoBackground from "./components/CasinoBackground";
+import VaultClaim from "./components/vault/VaultClaim";
+import CasinoBackground from "./components/effects/CasinoBackground";
 
 function App() {
   return (
