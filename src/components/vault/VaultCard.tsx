@@ -1,9 +1,9 @@
 import React from "react";
-import CountdownTimer from "./CountdownTimer";
+import CountdownTimer from "../common/CountdownTimer";
 import SwipeToClaimButton from "./SwipeToClaimButton";
-import AnimatedCounter from "./AnimatedCounter";
+import AnimatedCounter from "../common/AnimatedCounter";
 import { Vault, Coins, TrendingUp } from "lucide-react";
-import SparkleBurst from "./SparkleBurst";
+import SparkleBurst from "../effects/SparkleBurst";
 
 interface VaultCardProps {
   balance: number;

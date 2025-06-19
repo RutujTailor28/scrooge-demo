@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Gift, Lock, ChevronRight } from "lucide-react";
-import SparkleBurst from "./SparkleBurst";
+import SparkleBurst from "../effects/SparkleBurst";
 
 interface SwipeToClaimButtonProps {
   canClaim: boolean;
@@ -35,7 +35,7 @@ const SwipeToClaimButton: React.FC<SwipeToClaimButtonProps> = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleStart = (clientX: number) => {
+  const handleStart = () => {
     if (!canClaim || isCompleted) return;
     setIsDragging(true);
   };
@@ -81,7 +81,7 @@ const SwipeToClaimButton: React.FC<SwipeToClaimButtonProps> = ({
   // Mouse events
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
-    handleStart(e.clientX);
+    handleStart();
   };
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -93,8 +93,8 @@ const SwipeToClaimButton: React.FC<SwipeToClaimButtonProps> = ({
   };
 
   // Touch events
-  const handleTouchStart = (e: React.TouchEvent) => {
-    handleStart(e.touches[0].clientX);
+  const handleTouchStart = () => {
+    handleStart();
   };
 
   const handleTouchMove = (e: TouchEvent) => {

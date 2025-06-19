@@ -1,6 +1,6 @@
 import React from "react";
 import { History, TrendingUp } from "lucide-react";
-import SparkleBurst from "./SparkleBurst";
+import SparkleBurst from "../effects/SparkleBurst";
 
 interface ClaimLog {
   id: number;
