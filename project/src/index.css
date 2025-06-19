@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
+  }
+  
+  .animate-float-up {
+    animation: floatUp 2s ease-out forwards;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  @keyframes floatUp {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(0.8);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-20px) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-40px) scale(1.1);
+    }
+  }
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(51, 65, 85, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #a855f7, #7c3aed);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #9333ea, #6d28d9);
+}
+
+/* Smooth animations for better UX */
+* {
+  transition-property: transform, opacity, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus styles for accessibility */
+button:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
+}
+
+/* Money counter specific animations */
+.money-counter {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Pulsing glow effect for balance updates */
+@keyframes balance-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(250, 204, 21, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(250, 204, 21, 0.6), 0 0 60px rgba(34, 197, 94, 0.3);
+  }
+}
+
+.balance-updating {
+  animation: balance-glow 1s ease-in-out infinite;
+}
+
+/* Prevent text selection during drag */
+.select-none {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Touch action for better mobile experience */
+.touch-pan-y {
+  touch-action: pan-y;
+}
